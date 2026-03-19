@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewWayPay — Paiement fractionné</title>
+</head>
+<body>
+
+  <header class="navbar" ng-controller="NavController">
+    <div class="navbar__brand">
+      <span class="navbar__logo">NWP</span>
+      <span class="navbar__name">NewWayPay</span>
+    </div>
+    <nav class="navbar__links" ng-show="isLoggedIn()">
+      <a href="#!/dashboard" class="navbar__link">Dashboard</a>
+      <a href="#!/transactions" class="navbar__link">Transactions</a>
+      <a href="#!/checkout" class="navbar__link navbar__link--cta">Payer en 3x/4x</a>
+      <button class="navbar__logout" ng-click="logout()">Déconnexion</button>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <div ng-view class="view-container"></div>
+  </main>
+
+  <footer class="footer">
+    <p>NewWayPay &copy; 2024</p>
+  </footer>
+
+</body>
+</html>
