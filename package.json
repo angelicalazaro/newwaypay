@@ -1,13 +1,37 @@
 {
-  "name": "newwaypay-angularjs",
+  "name": "newwaypay",
   "version": "1.0.0",
-  "description": "NewWayPay — Application bancaire AngularJS 1.x (legacy, avant migration Angular 21)",
+  "description": "NewWayPay — Migration AngularJS 1.x vers Angular 21",
   "scripts": {
-    "start": "npx http-server . -p 8080 -o",
-    "serve": "npx http-server . -p 8080"
+    "start": "ng serve",
+    "build": "ng build",
+    "build:prod": "ng build --configuration=production",
+    "lint": "ng lint",
+    "test": "ng test",
+    "serve:legacy": "npx http-server . -p 8080"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^21.2.0",
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "@angular/upgrade": "^21.2.0",
+    "angular": "1.8.3",
+    "angular-route": "1.8.3",
+    "angular-animate": "1.8.3",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
+    "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "@angular/build": "^21.2.2",
+    "@angular/cli": "^21.2.2",
+    "@angular/compiler-cli": "^21.2.0",
+    "typescript": "~5.9.2"
   },
   "engines": {
     "node": ">=18"
