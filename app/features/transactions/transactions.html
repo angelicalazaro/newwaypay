@@ -1,0 +1,44 @@
+<div class="transactions-page">
+  <div class="page-header">
+    <h1 class="page-title">Mes transactions</h1>
+  </div>
+
+  <div class="filters">
+    <input
+      class="form-input filters__search"
+      type="text"
+      ng-model="searchQuery"
+      placeholder="Rechercher..."
+    />
+    <div class="filters__status">
+      <button class="filter-btn" ng-class="{ 'filter-btn--active': filterStatus === 'all' }" ng-click="filterStatus = 'all'">Toutes</button>
+      <button class="filter-btn" ng-class="{ 'filter-btn--active': filterStatus === 'completed' }" ng-click="filterStatus = 'completed'">Complétées</button>
+      <button class="filter-btn" ng-class="{ 'filter-btn--active': filterStatus === 'pending' }" ng-click="filterStatus = 'pending'">En cours</button>
+      <button class="filter-btn" ng-class="{ 'filter-btn--active': filterStatus === 'failed' }" ng-click="filterStatus = 'failed'">Échouées</button>
+    </div>
+  </div>
+
+  <div class="transactions-list">
+    <div class="transaction-card" ng-repeat="txn in filtered() track by txn.id">
+      <div class="transaction-card__main">
+        <div class="transaction-card__info">
+          <span class="transaction-card__label">{{ txn.label }}</span>
+          <span class="transaction-card__meta">{{ txn.plan }} — {{ txn.date }}</span>
+        </div>
+        <div class="transaction-card__right">
+          <span class="transaction-card__amount">{{ txn.amount | currencyEur }}</span>
+          <span ng-class="getStatusClass(txn.status)">{{ txn.status }}</span>
+        </div>
+      </div>
+      <ul class="transaction-card__installments">
+        <li ng-repeat="inst in txn.installments track by $index">
+          Versement {{ $index + 1 }} : {{ inst | currencyEur }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="empty-state" ng-if="filtered().length === 0">
+      <p>Aucune transaction trouvée.</p>
+    </div>
+  </div>
+</div>

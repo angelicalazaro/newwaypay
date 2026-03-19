@@ -1,0 +1,40 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="auth-card__header">
+      <span class="auth-card__logo">NWP</span>
+      <h1 class="auth-card__title">Connexion</h1>
+      <p class="auth-card__subtitle">Email : angelica@newwaypay.fr / MDP : demo1234</p>
+    </div>
+
+    <form class="auth-form" ng-submit="login()" novalidate>
+      <div class="form-group">
+        <label class="form-label" for="email">Adresse email</label>
+        <input
+          id="email"
+          class="form-input"
+          type="email"
+          ng-model="credentials.email"
+          placeholder="votre@email.fr"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="password">Mot de passe</label>
+        <input
+          id="password"
+          class="form-input"
+          type="password"
+          ng-model="credentials.password"
+          placeholder="••••••••"
+          required
+        />
+      </div>
+
+      <button class="btn btn--primary btn--full" type="submit" ng-disabled="isLoading">
+        <span ng-if="!isLoading">Se connecter</span>
+        <span ng-if="isLoading">Connexion...</span>
+      </button>
+    </form>
+  </div>
+</div>

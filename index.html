@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="newWayPay">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NewWayPay — Paiement fractionné</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-animate.min.js"></script>
+  <link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+  <header class="navbar" ng-controller="NavController">
+    <div class="navbar__brand">
+      <span class="navbar__logo">NWP</span>
+      <span class="navbar__name">NewWayPay</span>
+    </div>
+    <nav class="navbar__links" ng-show="isLoggedIn()">
+      <a href="#!/dashboard" class="navbar__link">Dashboard</a>
+      <a href="#!/transactions" class="navbar__link">Transactions</a>
+      <a href="#!/checkout" class="navbar__link navbar__link--cta">Payer en 3x/4x</a>
+      <button class="navbar__logout" ng-click="logout()">Déconnexion</button>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <div ng-view class="view-container"></div>
+  </main>
+
+  <footer class="footer">
+    <p>NewWayPay &copy; 2024 — Application AngularJS 1.x</p>
+  </footer>
+
+  <script src="app/app.module.js"></script>
+  <script src="app/app.config.js"></script>
+  <script src="app/core/services/auth.service.js"></script>
+  <script src="app/core/services/payment.service.js"></script>
+  <script src="app/core/services/notification.service.js"></script>
+  <script src="app/shared/directives/balance-card.directive.js"></script>
+  <script src="app/shared/filters/currency-eur.filter.js"></script>
+  <script src="app/features/auth/login.controller.js"></script>
+  <script src="app/features/dashboard/dashboard.controller.js"></script>
+  <script src="app/features/payment-tunnel/payment-tunnel.controller.js"></script>
+  <script src="app/features/transactions/transactions.controller.js"></script>
+  <script src="app/core/nav.controller.js"></script>
+
+</body>
+</html>

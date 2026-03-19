@@ -1,59 +1,80 @@
-# Newwaypay
+# NewWayPay — AngularJS Legacy
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.2.
+Application bancaire de paiement fractionné 3x/4x, construite avec AngularJS 1.8.3.
 
-## Development server
+Cette branche représente l'état **avant migration** vers Angular 21. Elle sert de point de comparaison pour illustrer la stratégie de migration, les patterns AngularJS utilisés, et les gains obtenus après modernisation.
 
-To start a local development server, run:
+## Stack technique
 
-```bash
-ng serve
-```
+| Technologie | Version |
+|-------------|---------|
+| AngularJS | 1.8.3 |
+| angular-route | 1.8.3 |
+| angular-animate | 1.8.3 |
+| Node.js | ≥ 18 |
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Lancement
 
 ```bash
-ng generate --help
+npm install
+npm start
 ```
 
-## Building
+L'application s'ouvre sur `http://localhost:8080`.
 
-To build the project run:
+**Identifiants de démonstration :**
+- Email : `angelica@newwaypay.fr`
+- Mot de passe : `demo1234`
 
-```bash
-ng build
+## Architecture
+
+```
+├── index.html
+├── app/
+│   ├── app.module.js
+│   ├── app.config.js
+│   ├── core/
+│   │   ├── nav.controller.js
+│   │   └── services/
+│   │       ├── auth.service.js
+│   │       ├── payment.service.js
+│   │       └── notification.service.js
+│   ├── features/
+│   │   ├── auth/
+│   │   ├── dashboard/
+│   │   ├── payment-tunnel/
+│   │   └── transactions/
+│   └── shared/
+│       ├── directives/
+│       └── filters/
+└── styles/
+    └── main.css
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Fonctionnalités
 
-## Running unit tests
+- Authentification (session storage)
+- Dashboard avec solde et transactions récentes
+- Tunnel de paiement fractionné 3x/4x avec stepper
+- Liste des transactions avec filtres et recherche
+- Calcul dynamique des échéances
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Patterns AngularJS utilisés
 
-```bash
-ng test
-```
+- Controllers (`$scope`)
+- Services/Factories (injection de dépendances via `$injector`)
+- Directives personnalisées
+- Filters personnalisés
+- Routing avec `ngRoute` et `resolve` pour les guards
+- Data binding bidirectionnel (`ng-model`)
 
-## Running end-to-end tests
+## Migration → Angular 21
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Voir la branche `main` pour la version Angular 21 avec :
+- Standalone components
+- Signals & `computed()`
+- `inject()` function
+- Reactive Forms
+- `HttpClient` avec interceptors fonctionnels
+- Lazy loading
+- Tests Jest + Playwright

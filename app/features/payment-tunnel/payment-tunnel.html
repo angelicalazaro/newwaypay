@@ -1,0 +1,115 @@
+<div class="checkout">
+  <div class="checkout__header">
+    <h1 class="checkout__title">Paiement fractionné</h1>
+    <div class="stepper">
+      <div class="stepper__step" ng-class="{ 'stepper__step--active': currentStep >= 1, 'stepper__step--done': currentStep > 1 }">
+        <span class="stepper__number">1</span>
+        <span class="stepper__label">Panier</span>
+      </div>
+      <div class="stepper__connector"></div>
+      <div class="stepper__step" ng-class="{ 'stepper__step--active': currentStep >= 2, 'stepper__step--done': currentStep > 2 }">
+        <span class="stepper__number">2</span>
+        <span class="stepper__label">Plan</span>
+      </div>
+      <div class="stepper__connector"></div>
+      <div class="stepper__step" ng-class="{ 'stepper__step--active': currentStep >= 3, 'stepper__step--done': currentStep > 3 }">
+        <span class="stepper__number">3</span>
+        <span class="stepper__label">Paiement</span>
+      </div>
+      <div class="stepper__connector"></div>
+      <div class="stepper__step" ng-class="{ 'stepper__step--active': currentStep === 4 }">
+        <span class="stepper__number">4</span>
+        <span class="stepper__label">Confirmation</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout__body">
+
+    <div ng-show="currentStep === 1" class="checkout__step">
+      <h2 class="step-title">Récapitulatif du panier</h2>
+      <div class="cart-summary">
+        <div class="cart-summary__item">
+          <span class="cart-summary__label">{{ cart.label }}</span>
+          <span class="cart-summary__amount">{{ cart.amount | currencyEur }}</span>
+        </div>
+      </div>
+      <div class="checkout__actions">
+        <button class="btn btn--primary" ng-click="nextStep()">Choisir mon plan</button>
+      </div>
+    </div>
+
+    <div ng-show="currentStep === 2" class="checkout__step">
+      <h2 class="step-title">Choisir votre plan de paiement</h2>
+      <div class="plan-selector">
+        <label class="plan-option" ng-class="{ 'plan-option--selected': selectedPlan === 3 }">
+          <input type="radio" name="plan" ng-model="selectedPlan" ng-value="3" ng-change="updateInstallments()" />
+          <span class="plan-option__title">Payer en 3x</span>
+          <span class="plan-option__sub">{{ cart.amount / 3 | currencyEur }} × 3</span>
+        </label>
+        <label class="plan-option" ng-class="{ 'plan-option--selected': selectedPlan === 4 }">
+          <input type="radio" name="plan" ng-model="selectedPlan" ng-value="4" ng-change="updateInstallments()" />
+          <span class="plan-option__title">Payer en 4x</span>
+          <span class="plan-option__sub">{{ cart.amount / 4 | currencyEur }} × 4</span>
+        </label>
+      </div>
+      <div class="installments-preview">
+        <h3 class="installments-preview__title">Échéancier</h3>
+        <ul class="installments-preview__list">
+          <li ng-repeat="amount in installments track by $index" class="installments-preview__item">
+            <span>Versement {{ $index + 1 }}</span>
+            <span>{{ amount | currencyEur }}</span>
+          </li>
+        </ul>
+      </div>
+      <div class="checkout__actions">
+        <button class="btn btn--ghost" ng-click="prevStep()">Retour</button>
+        <button class="btn btn--primary" ng-click="nextStep()">Saisir ma carte</button>
+      </div>
+    </div>
+
+    <div ng-show="currentStep === 3" class="checkout__step">
+      <h2 class="step-title">Informations de paiement</h2>
+      <form class="payment-form" ng-submit="submitPayment()" novalidate>
+        <div class="form-group">
+          <label class="form-label" for="card-holder">Titulaire de la carte</label>
+          <input id="card-holder" class="form-input" type="text" ng-model="card.holder" placeholder="Jean Dupont" required />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="card-number">Numéro de carte</label>
+          <input id="card-number" class="form-input" type="text" ng-model="card.number" placeholder="4242 4242 4242 4242" maxlength="19" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="card-expiry">Date d'expiration</label>
+            <input id="card-expiry" class="form-input" type="text" ng-model="card.expiry" placeholder="MM/AA" maxlength="5" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="card-cvc">CVC</label>
+            <input id="card-cvc" class="form-input" type="text" ng-model="card.cvc" placeholder="123" maxlength="3" required />
+          </div>
+        </div>
+        <div class="checkout__actions">
+          <button class="btn btn--ghost" type="button" ng-click="prevStep()">Retour</button>
+          <button class="btn btn--primary" type="submit">Valider le paiement de {{ cart.amount | currencyEur }}</button>
+        </div>
+      </form>
+    </div>
+
+    <div ng-show="currentStep === 4" class="checkout__step checkout__step--confirmation">
+      <div class="confirmation">
+        <div class="confirmation__icon">✓</div>
+        <h2 class="confirmation__title">Paiement confirmé !</h2>
+        <p class="confirmation__ref">Référence : {{ confirmation.transactionId }}</p>
+        <ul class="installments-preview__list">
+          <li ng-repeat="amount in confirmation.installments track by $index" class="installments-preview__item">
+            <span>Versement {{ $index + 1 }}</span>
+            <span>{{ amount | currencyEur }}</span>
+          </li>
+        </ul>
+        <button class="btn btn--primary" ng-click="goToDashboard()">Retour au dashboard</button>
+      </div>
+    </div>
+
+  </div>
+</div>

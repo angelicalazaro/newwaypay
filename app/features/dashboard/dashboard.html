@@ -1,0 +1,46 @@
+<div class="dashboard">
+  <div class="dashboard__header">
+    <h1 class="dashboard__title">Mon espace</h1>
+  </div>
+
+  <div class="dashboard__grid">
+    <div class="dashboard__balance">
+      <balance-card
+        balance="user.balance"
+        currency="EUR"
+        user-name="{{ user.firstName }}">
+      </balance-card>
+    </div>
+
+    <div class="dashboard__stats">
+      <div class="stat-card">
+        <span class="stat-card__label">Total dépensé (complété)</span>
+        <span class="stat-card__value">{{ totalSpent | currencyEur }}</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-card__label">Transactions actives</span>
+        <span class="stat-card__value">{{ transactions.length }}</span>
+      </div>
+    </div>
+
+    <div class="dashboard__recent">
+      <div class="section-header">
+        <h2 class="section-title">Dernières transactions</h2>
+        <a href="#!/transactions" class="link">Voir tout</a>
+      </div>
+
+      <ul class="transaction-list">
+        <li class="transaction-item" ng-repeat="txn in transactions">
+          <div class="transaction-item__info">
+            <span class="transaction-item__label">{{ txn.label }}</span>
+            <span class="transaction-item__date">{{ txn.date }}</span>
+          </div>
+          <div class="transaction-item__right">
+            <span class="transaction-item__amount">{{ txn.amount | currencyEur }}</span>
+            <span ng-class="getStatusClass(txn.status)">{{ txn.status }}</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
