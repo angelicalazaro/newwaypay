@@ -67,6 +67,19 @@
             "development": { "buildTarget": "newwaypay:build:development" }
           },
           "defaultConfiguration": "development"
+        },
+        "test": {
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "tsConfig": "tsconfig.spec.json",
+            "runner": "vitest"
+          },
+          "configurations": {
+            "ci": {
+              "coverage": true,
+              "coverageReporters": ["lcov", "text-summary"]
+            }
+          }
         }
       }
     }
